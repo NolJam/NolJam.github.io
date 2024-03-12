@@ -103,11 +103,11 @@ dropIns.addEventListener("change", function() {
     myInput.removeListener("noteoff");
   }
 
-  myInput = WebMidi.inputs[dropIns.value].channels[1];
+  myInput = WebMidi.inputs[dropIns.value];
 
   myInput.addListener("noteon", function(someMIDI) {
     console.log("note on");
-    
+
     for (let i = 0; i < chord.length; i++) { // prevent losing note offs
       myOutput.sendNoteOff(curChord[i]);
     }
