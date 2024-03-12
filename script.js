@@ -96,6 +96,8 @@ WebMidi.outputs.forEach(function(output, num) {
 });
 
 dropIns.addEventListener("change", function() {
+  console.log("input changed");
+
   if (myInput.hasListener("noteon")) {
     myInput.removeListener("noteon");
   }
