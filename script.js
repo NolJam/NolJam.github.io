@@ -58,7 +58,7 @@ voicing.addEventListener("change", function() {
   }
 });
 
-scale.addEventListener("change", function() {
+scale.addEventListener("change", function() { // sets curStyle array to one of the predefined constants for later
   switch(scale.value) {
     case "major":
       curStyle = major;
@@ -103,19 +103,25 @@ dropIns.addEventListener("change", function() {
     myInput.removeListener("noteoff");
   }
 
-  myInput = WebMidi.inputs[dropIns.value];
+  myInput = WebMidi.inputs[dropIns.value].channels[1];
 
   myInput.addListener("noteon", function(someMIDI) {
-    // myOutput.sendNoteOn(someMIDI.note);
-    curChord = midiProcess(someMIDI.note);
-    for (let i = 0; i < chord.length; i++) {
+    for (let i = 0; i < chord.length; i++) { // prevent losing note offs
+      myOutput.sendNoteOff(curChord[i]);
+    }
+
+    curChord = midiProcess(someMIDI.note); // turn note into chord and store it in global curChord var
+
+    for (let i = 0; i < chord.length; i++) { // send note ons for each note in chord
       myOutput.sendNoteOn(curChord[i]);
     }
   });
 
   myInput.addListener("noteoff", function(someMIDI) {
+    let tempChord = midiProcess(someMIDI.note); // prevent unnecessary note offs when multiple keys are pressed
+
     for (let i = 0; i < chord.length; i++) {
-      myOutput.sendNoteOff(curChord[i]);
+      myOutput.sendNoteOff(tempChord[i]);
     }
   });
 });
