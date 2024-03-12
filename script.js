@@ -114,6 +114,7 @@ dropIns.addEventListener("change", function() {
 
     for (let i = 0; i < chord.length; i++) { // send note ons for each note in chord
       myOutput.sendNoteOn(curChord[i]);
+      console.log(curChord[i]);
     }
   });
 
@@ -122,6 +123,7 @@ dropIns.addEventListener("change", function() {
 
     for (let i = 0; i < chord.length; i++) {
       myOutput.sendNoteOff(tempChord[i]);
+      console.log(tempChord[i]);
     }
   });
 });
