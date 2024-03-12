@@ -1,7 +1,7 @@
 await WebMidi.enable();
 
-let myInput = WebMidi.inputs[0];
-let myOutput = WebMidi.outputs[0];
+let myInput = WebMidi.inputs[0].channels[1];
+let myOutput = WebMidi.outputs[0].channels[1];
 
 let dropIns = document.getElementById("dropdown-ins");
 let dropOuts = document.getElementById("dropdown-outs");
@@ -105,7 +105,7 @@ dropIns.addEventListener("change", function() {
     myInput.removeListener("noteoff");
   }
 
-  myInput = WebMidi.inputs[dropIns.value];
+  myInput = WebMidi.inputs[dropIns.value].channels[1];
 
   myInput.addListener("noteon", function(someMIDI) {
     console.log("note on");
