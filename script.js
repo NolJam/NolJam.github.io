@@ -117,7 +117,7 @@ dropIns.addEventListener("change", function() {
       myOutput.sendNoteOff(curChord[i]);
     }
 
-    curChord = midiProcess(someMIDI.note); // turn note into chord and store it in global curChord var
+    curChord = midiProcess(someMIDI.note.number); // turn note into chord and store it in global curChord var
 
     for (let i = 0; i < curChord.length; i++) { // send note ons for each note in chord
       myOutput.sendNoteOn(curChord[i]);
@@ -126,7 +126,7 @@ dropIns.addEventListener("change", function() {
   });
 
   myInput.addListener("noteoff", function(someMIDI) {
-    let tempChord = midiProcess(someMIDI.note); // prevent unnecessary note offs when multiple keys are pressed
+    let tempChord = midiProcess(someMIDI.note.number); // prevent unnecessary note offs when multiple keys are pressed
 
     for (let i = 0; i < tempChord.length; i++) {
       myOutput.sendNoteOff(tempChord[i]);
