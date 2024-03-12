@@ -8,7 +8,8 @@ let dropOuts = document.getElementById("dropdown-outs");
 
 const major = [0, 4, 7, 11];
 const minor = [0, 3, 7, 10];
-const augmented = [0, 6, 7, 11];
+const augmented = [0, 4, 8, 11];
+const diminished = [0, 3, 6, 10];
 
 const firstInversion = [1, 2, 3, 0];
 const secondInversion = [2, 3, 0, 1];
@@ -17,9 +18,12 @@ let curStyle = major;
 
 let curChord = [];
 
+let sevenChord = false;
+
 let octave = document.getElementById("octave");
 let voicing = document.getElementById("voicing");
 let scale = document.getElementById("scale");
+let addSev = document.getElementById("addSev");
 
 const midiProcess = function(note) {
   let chord = [];
@@ -33,15 +37,17 @@ const midiProcess = function(note) {
     for (let i = 0; i < chord.length; i++) {
       invChord[i] = chord[firstInversion[i]];
     }
-    return invChord;
+    chord = invChord;
   }
   else if (voicing.value == "secondInversion") {
     let invChord = []
     for (let i = 0; i < chord.length; i++) {
       invChord[i] = chord[secondInversion[i]];
     }
-    return invChord;
+    chord = invChord;
   }
+
+  if (!sevenChord) { chord.pop(); }
 
   return chord;
 };
@@ -63,6 +69,9 @@ scale.addEventListener("change", function() {
     case "augmented":
       curStyle = augmented;
       break;
+    case "diminished":
+      curStyle = diminished;
+      break;
     default:
       curStyle = major;
   }
@@ -72,6 +81,11 @@ scale.addEventListener("change", function() {
     myOutput.sendNoteOff(curChord[i]);
   }
 });
+
+addSev.addEventListener("change", function() {
+  sevenChord = !sevenChord;
+  console.log(sevenChord); // debug
+})
 
 WebMidi.inputs.forEach(function(input, num) {
   dropIns.innerHTML += `<option value=${num}>${input.name}</option>`;
