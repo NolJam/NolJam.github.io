@@ -111,7 +111,7 @@ dropIns.addEventListener("change", function() {
   myInput.addListener("noteon", function(someMIDI) {
     console.log("note on");
 
-    for (let i = 0; i < chord.length; i++) { // prevent losing note offs
+    for (let i = 0; i < curChord.length; i++) { // prevent losing note offs
       myOutput.sendNoteOff(curChord[i]);
     }
 
@@ -126,7 +126,7 @@ dropIns.addEventListener("change", function() {
   myInput.addListener("noteoff", function(someMIDI) {
     let tempChord = midiProcess(someMIDI.note); // prevent unnecessary note offs when multiple keys are pressed
 
-    for (let i = 0; i < chord.length; i++) {
+    for (let i = 0; i < tempChord.length; i++) {
       myOutput.sendNoteOff(tempChord[i]);
       console.log(tempChord[i]);
     }
