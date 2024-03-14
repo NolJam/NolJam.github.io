@@ -28,8 +28,7 @@ let addSev = document.getElementById("addSev");
 const midiProcess = function(note) {
   let chord = [];
   for (let i = 0; i < curStyle.length; i++) {
-    chord.push(new Note(note + curStyle[i]));
-    chord[i].number += 12 * octave;
+    chord.push(new Note(note + curStyle[i] + (12 * octave)));
   }
 
   console.log(chord);
