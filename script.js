@@ -117,6 +117,8 @@ dropIns.addEventListener("change", function() {
       myOutput.sendNoteOff(curChord[i]);
     }
 
+    console.log(someMIDI.note.number);
+
     curChord = midiProcess(someMIDI.note.number); // turn note into chord and store it in global curChord var
 
     for (let i = 0; i < curChord.length; i++) { // send note ons for each note in chord
